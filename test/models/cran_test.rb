@@ -16,6 +16,24 @@ class CranTest < ActiveSupport::TestCase
     FileUtils.mkdir '/tmp/cran' rescue nil
   end
   
+  test "cache_or_download should properly assemble simple file name" do
+    FileUtils.touch '/tmp/packages/PACKAGES'
+    file = Cran.cache_or_download('PACKAGES')
+    assert_equal file.path, '/tmp/packages/PACKAGES'
+  end
+  
+  test "cache_or_download should properly assemble two part file name" do
+    FileUtils.touch '/tmp/packages/test_0.0.1'
+    file = Cran.cache_or_download('test', '0.0.1')
+    assert_equal file.path, '/tmp/packages/test_0.0.1'
+  end
+  
+  test "cache_or_download should properly assemble two part file name with extension" do
+    FileUtils.touch '/tmp/packages/test_0.0.1.tar.gz'
+    file = Cran.cache_or_download('test', '0.0.1', 'tar.gz')
+    assert_equal file.path, '/tmp/packages/test_0.0.1.tar.gz'
+  end
+  
   test "cache_or_download should return file from cache path if exists" do
     FileUtils.touch '/tmp/packages/test_0.0.1'
     file = Cran.cache_or_download('test', '0.0.1')
