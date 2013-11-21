@@ -1,0 +1,32 @@
+<h1>Listing packages</h1>
+
+<form method="get" action="<%= packages_path %>">
+  <%= label_tag :search, 'Search packages' %>
+  <%= text_field_tag :search, params[:search] %>
+  <%= submit_tag 'Go' %>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Latest version</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @packages.each do |package| %>
+      <tr>
+        <td><%= package.name %></td>
+        <td><%= package.latest_version %></td>
+        <td><%= link_to 'Show', package %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

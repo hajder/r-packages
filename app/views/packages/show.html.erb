@@ -1,0 +1,38 @@
+<h1>Listing versions for <%= @package %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Version</th>
+      <th>Dependencies</th>
+      <th>Suggestions</th>
+      <th>Publication</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Author</th>
+      <th>Maintainer</th>
+      <th>License</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @package_versions.each do |package_version| %>
+      <tr>
+        <td><%= package_version.version %></td>
+        <td><%= package_version.dependencies %></td>
+        <td><%= package_version.suggestions %></td>
+        <td><%= package_version.publication %></td>
+        <td><%= package_version.title %></td>
+        <td><%= package_version.description %></td>
+        <td><%= package_version.author %></td>
+        <td><%= package_version.maintainer %></td>
+        <td><%= package_version.license %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'back', packages_path %>

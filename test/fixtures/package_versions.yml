@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  package: :one
+  version: 1.0
+  r_version: MyString
+  dependencies: MyString
+  suggestions: MyString
+  publication: 2013-11-21
+  title: MyString
+  description: MyText
+  author: MyString
+  maintainer: MyString
+  license: MyString
+
+two:
+  package: :two
+  version: 2.0
+  r_version: MyString
+  dependencies: MyString
+  suggestions: MyString
+  publication: 2013-11-21
+  title: MyString
+  description: MyText
+  author: MyString
+  maintainer: MyString
+  license: MyString
