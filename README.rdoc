@@ -1,28 +1,9 @@
-== README
+=== README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+r-packages is an app that indexes and allows to search through R language packages.
+Indexing is performed through rake task:
 
-Things you may want to cover:
+    $ rake packages:update
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+It was done as a test project for SponsorPay during 7.5 hours.
+Tests are written in `test/unit`.
