@@ -1,4 +1,4 @@
-=== README ===
+## README 
 
 r-packages is an app that indexes and allows to search through R language packages.
 Indexing is performed through rake task:
