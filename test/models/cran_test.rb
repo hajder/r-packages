@@ -18,14 +18,14 @@ class CranTest < ActiveSupport::TestCase
   
   test "cache_or_download should return file from cache path if exists" do
     FileUtils.touch '/tmp/packages/test_0.0.1'
-    file = Cran.cache_or_download(Cran::CRAN_URI + 'test_0.0.1')
+    file = Cran.cache_or_download('test', '0.0.1')
     assert_equal file.path, '/tmp/packages/test_0.0.1'
   end
   
   test "cache_or_download should download file in missing" do
-    FileUtils.rm '/tmp/packages/beefdead_0.0.1'
+    FileUtils.rm '/tmp/packages/beefdead_0.0.1' rescue nil
     File.open('/tmp/cran/beefdead_0.0.1', 'w+') {|f| f.write('DEADBEEF') }
-    file = Cran.cache_or_download(Cran::CRAN_URI + 'beefdead_0.0.1')
+    file = Cran.cache_or_download('beefdead', '0.0.1')
     assert_equal file.path, '/tmp/packages/beefdead_0.0.1', 'copies files to cache folder'
     assert_equal file.read, 'DEADBEEF', 'file has same content'
   end
@@ -49,7 +49,7 @@ class CranTest < ActiveSupport::TestCase
     FileUtils.rm '/tmp/packages/abc_1.8.tar.gz' rescue nil
     package = Cran.fetch_package_details('Package' => 'abc', 'Version' => '1.8')
     assert File.exists? '/tmp/packages/abc_1.8.tar.gz'
-    refute package.is_a?(Hash), 'returns hash'
+    assert package.is_a?(Hash), 'returns hash'
     assert_equal package[:version], '1.8'
     assert_equal package[:maintainer], 'Michael Blum <michael.blum@imag.fr>'
   end

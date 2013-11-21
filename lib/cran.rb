@@ -6,13 +6,13 @@ module Cran
     if File.exists?(packages) && File.mtime(packages) < 12.hours.ago
       File.unlink(packages)
     end
-    self.cache_or_download(CRAN_URI + 'PACKAGES')
+    self.cache_or_download('PACKAGES')
   end
   
   def self.fetch_package_details(package_info)
     raise ArgumentError, 'incomplete packet information' if package_info['Package'].blank? || package_info['Version'].blank?
     
-    file = self.cache_or_download(CRAN_URI + package_info['Package'] + '_' + package_info['Version'] + '.tar.gz')
+    file = self.cache_or_download(package_info['Package'], package_info['Version'], 'tar.gz')
     tar = Gem::Package::TarReader.new(Zlib::GzipReader.open(file))
     dcf = tar.seek(package_info['Package'] + '/DESCRIPTION') do |desc|
       Dcf.parse desc.read
@@ -28,12 +28,13 @@ module Cran
     {}
   end
   
-  def self.cache_or_download(uri)
-    filename = File.basename(uri)
+  def self.cache_or_download(package, version = nil, extension = nil)
+    base_name = [package, version].compact.join('_')
+    filename = [base_name, extension].compact.join('.')
     
     unless File.exists?(self.cache_path(filename))
       cache = File.new(self.cache_path(filename), 'wb')
-      cache.write(open(uri).read)
+      cache.write(open(CRAN_URI + filename).read)
       cache.close
     end
     

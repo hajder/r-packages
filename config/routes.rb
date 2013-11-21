@@ -1,8 +1,8 @@
 RPackages::Application.routes.draw do
   
-  resources :packages do
-    resources :package_versions
-  end
+  resources :packages
+  
+  root 'packages#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
